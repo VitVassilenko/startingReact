@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import axios from 'axios' ;
 
 
 
@@ -10,14 +11,18 @@ class App extends React.Component {
     movies: []
   }
 
+  getMovies = async () => {
+    const movies = await axios.get('https://yts.mx/api/v2/list_movies.json');
+  }
+
   componentDidMount() {
-    setTimeout(() => {this.setState({isLoading: false})}, 5000);
+    this.getMovies();
   }
   
  render() { 
    const {isLoading} = this.state;
    return <div>
-     <h1>{isLoading ? 'Loading . . .' : 'Page loaded!'}</h1>
+     <h1>{isLoading ? 'Loading...' : 'Page loaded!'}</h1>
    </div>
  }
 }
